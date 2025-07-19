@@ -9,5 +9,5 @@ data class Event(
     val name: String,
     val dateStart: String,
     val isLocked: Boolean = false,
-    val participants: List<Int> = emptyList()
+    val participants: List<String> = emptyList()
 ) : Parcelable
