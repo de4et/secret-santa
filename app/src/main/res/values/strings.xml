@@ -4,8 +4,16 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="user_list_fragment_label">Выберите себя</string>
+    <string name="user_detail_fragment_label">Ваша пара</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="back_button_text">Назад</string>
+    <string name="nickname_text">Nickname</string>
+    <string name="wishes_text">Здесь будут отображаться пожелания</string>
+    <string name="no_wishes_text">Здесь будут отображаться пожелания</string>
+
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
