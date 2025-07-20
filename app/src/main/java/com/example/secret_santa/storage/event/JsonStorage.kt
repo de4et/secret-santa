@@ -6,16 +6,8 @@ import java.io.File
 import com.google.gson.Gson
 import java.util.UUID
 
-object EventStorage {
-    private lateinit var appContext: Context
-    private lateinit var fileName: String
+class EventStorage(private val appContext: Context, private val fileName: String) {
     private val gson = Gson()
-
-
-    fun init(context: Context, fileName: String) {
-        appContext = context.applicationContext
-        this.fileName = fileName
-    }
 
     private fun saveAll(events: List<Event>) {
         File(appContext.filesDir, fileName).writeText(gson.toJson(events))
@@ -31,7 +23,7 @@ object EventStorage {
     fun getAll(): List<Event> = loadAll()
     fun getById(id: String): Event? = loadAll().find { it.id == id }
 
-    fun add(name: String, date: String, participants: List<Int>) {
+    fun add(name: String, date: String, participants: List<String>) {
         val l = loadAll()
         saveAll(l + Event( name = name,
             id = UUID.randomUUID().toString(),

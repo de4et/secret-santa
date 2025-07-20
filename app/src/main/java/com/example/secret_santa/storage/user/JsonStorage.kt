@@ -6,16 +6,10 @@ import java.io.File
 import com.google.gson.Gson
 import java.util.UUID
 
-object UserStorage {
+class UserStorage(context: Context, fileName: String) {
     private lateinit var appContext: Context
     private lateinit var fileName: String
     private val gson = Gson()
-
-
-    fun init(context: Context, fileName: String) {
-        appContext = context.applicationContext
-        this.fileName = fileName
-    }
 
     private fun saveAll(events: List<User>) {
         File(appContext.filesDir, fileName).writeText(gson.toJson(events))
