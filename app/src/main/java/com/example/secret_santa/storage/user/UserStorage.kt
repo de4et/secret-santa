@@ -6,9 +6,7 @@ import java.io.File
 import com.google.gson.Gson
 import java.util.UUID
 
-class UserStorage(context: Context, fileName: String) {
-    private lateinit var appContext: Context
-    private lateinit var fileName: String
+class UserStorage(private val appContext: Context, private val fileName: String) {
     private val gson = Gson()
 
     private fun saveAll(events: List<User>) {
@@ -25,14 +23,16 @@ class UserStorage(context: Context, fileName: String) {
     fun getAll(): List<User> = loadAll()
     fun getById(id: String): User? = loadAll().find { it.id == id }
 
-    fun add(name: String, wishes: String?, pathToImage: String?) {
+    fun add(name: String, wishes: String?, pathToImage: String?): String {
         val l = loadAll()
+        val id = UUID.randomUUID().toString()
         saveAll(l + User(
             name = name,
-            id = UUID.randomUUID().toString(),
+            id = id,
             pathToImage = pathToImage,
             wishes = wishes
         ))
+        return id
     }
 
     fun update(updatedUser: User) {
