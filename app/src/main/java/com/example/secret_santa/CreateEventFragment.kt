@@ -3,6 +3,7 @@ package com.example.secret_santa
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.secret_santa.databinding.FragmentCreateEventBinding
 import com.example.secret_santa.storage.ServiceLocator
@@ -10,8 +11,8 @@ import java.util.Calendar
 
 class CreateEventFragment: Fragment(R.layout.fragment_create_event) {
 
-    var viewBinding: FragmentCreateEventBinding? = null
-    var datePickerDialog: DatePickerDialog? = null
+    private var viewBinding: FragmentCreateEventBinding? = null
+    private var datePickerDialog: DatePickerDialog? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +40,7 @@ class CreateEventFragment: Fragment(R.layout.fragment_create_event) {
         )
 
         // TODO: navigate this event's page
+        Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
     }
 
     private fun getTodayDate() : Triple<Int, Int, Int>

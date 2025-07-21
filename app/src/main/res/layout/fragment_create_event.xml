@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/event_name_label"
         android:layout_margin="8dp"
-        style="@style/TextAppearance.AppCompat.Headline"
+        style="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="@string/event_date_label"
         android:layout_margin="8dp"
-        style="@style/TextAppearance.AppCompat.Headline"
+        style="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintTop_toBottomOf="@id/event_name_ti"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -48,7 +48,7 @@
         android:id="@+id/date_picker_btn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/design_default_color_on_secondary"
         style="?android:spinnerStyle"
         tools:text="01/01/2025"
 
@@ -66,13 +66,4 @@
         app:layout_constraintTop_toBottomOf="@id/date_picker_btn"
         app:layout_constraintStart_toStartOf="@id/event_date_label"
         app:layout_constraintEnd_toEndOf="@id/event_date_label" />
-
-<!--    <DatePicker-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/event_name_ti"/>-->
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
