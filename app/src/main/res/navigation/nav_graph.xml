@@ -32,7 +32,7 @@
         android:label="@string/user_list_fragment_label">
         <argument
             android:name="users"
-            app:argType="com.example.secret_santa.model.UserDataModel[]"/>
+            app:argType="com.example.secret_santa.model.User[]"/>
         <action
             android:id="@+id/action_to_details"
             app:destination="@+id/detailsUserFragment" />
