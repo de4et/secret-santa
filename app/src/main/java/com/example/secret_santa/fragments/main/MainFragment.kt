@@ -33,7 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         private fun initViews() {
                 if (rvAdapter == null) {
                         if (dataList == null) {
-                                dataList = ServiceLocator.eventStorage.getAll() as MutableList<Event>?
+                                dataList = ServiceLocator.eventStorage.getAll().toMutableList()
                         }
                         rvAdapter = EventsPageAdapter(
                                 dataList = dataList ?: mutableListOf(),
