@@ -66,15 +66,17 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
         val wish = viewBinding?.userWishIe?.text.toString().trim()
 
         var path = "android.resource://com.example.secret_santa/drawable/baseline_person_200"
-        imageUri?.let {
-            saveProfileImageToInternalStorage(
-                requireContext(),
-                it,
-                UUID.randomUUID().toString()
-            )?.let { image ->
-                path = image
-            }
+        if (imageUri?.toString() != path) {
+            imageUri?.let {
+                saveProfileImageToInternalStorage(
+                    requireContext(),
+                    it,
+                    UUID.randomUUID().toString()
+                )?.let { image ->
+                    path = image
+                }
 
+            }
         }
 
         val id = ServiceLocator.userStorage.add(name, wish, path)
