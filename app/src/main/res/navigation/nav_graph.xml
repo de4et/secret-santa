@@ -25,7 +25,7 @@
             android:name="user"
             app:argType="com.example.secret_santa.model.user.User" />
     </fragment>
-  
+ 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.secret_santa.fragments.main.MainFragment"

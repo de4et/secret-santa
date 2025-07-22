@@ -24,6 +24,7 @@ class EventsListPageViewHolder(
             } else {
                 "${itemPosition + 1}"
             }
+            eventDate.text = item.dateStart
             eventNumberTv.text = positionText
             root.setOnClickListener {
                 onItemClickViewHolder.invoke(adapterPosition)
