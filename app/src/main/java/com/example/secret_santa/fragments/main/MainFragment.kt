@@ -50,7 +50,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 viewBinding?.addEventButton?.setOnClickListener {
                         findNavController()
-//                                .navigate(R.id.action_mainFragment_to_kakoytoFragment)
+                                .navigate(R.id.action_mainFragment_to_createEventFragment)
 
                 }
         }
@@ -59,8 +59,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 val item = dataList?.get(position) ?: return
                 val bundle = bundleOf(Keys.LIST_ITEM_DATA_KEY to item)
 
-//                findNavController()
-//                        .navigate(R.id.action_mainFragment_to_kakoytoFragment, bundle)
+                findNavController()
+                        .navigate(R.id.action_mainFragment_to_eventFragment, bundle)
         }
         override fun onDestroyView() {
                 super.onDestroyView()
