@@ -1,9 +1,11 @@
 package com.example.secret_santa.userlistpage
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,24 +23,25 @@ class ListPageUserFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewBinding = FragmentListPageUserBinding.inflate(inflater, container, false)
-        return viewBinding!!.root
+        return viewBinding?.root!!
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding!!.listPageRv.apply {
+        viewBinding?.listPageRv?.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
             addItemDecoration(BaseDecorator(marginSize = 16))
         }
 
-        val users = arguments?.getParcelableArray(Constants.Args.USERS)?.map { it as User }
+        val users = arguments?.getParcelableArray(Constants.Args.USERS, User::class.java)
 
         val usersMap = users?.associateBy { it.id }
 
         rvAdapter = ListPageAdapter(
-            dataList = users!!.toMutableList(),
+            dataList = users?.toMutableList()!!,
             requestManager = Glide.with(this),
             onItemClickAdapter = { position ->
                 val currentUser = users[position]
@@ -50,8 +53,8 @@ class ListPageUserFragment : Fragment() {
             }
         )
 
-        viewBinding!!.listPageRv.adapter = rvAdapter
-        viewBinding!!.listPageRv.addItemDecoration(BaseDecorator(marginSize = 16))
+        viewBinding?.listPageRv?.adapter = rvAdapter
+        viewBinding?.listPageRv?.addItemDecoration(BaseDecorator(marginSize = 16))
     }
 
     override fun onDestroyView() {

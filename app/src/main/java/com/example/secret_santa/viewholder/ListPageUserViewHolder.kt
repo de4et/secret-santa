@@ -13,14 +13,17 @@ class ListPageUserViewHolder(
     private val onItemClickViewHolder: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(viewBinding.root) {
 
+    init {
+        viewBinding.root.setOnClickListener {
+            onItemClickViewHolder(adapterPosition)
+        }
+    }
+
     fun bindData(user: User, itemPosition: Int, itemsCount: Int) {
         with(viewBinding) {
             listItemUsername.text = user.username
             itemDivider.isVisible = itemPosition != itemsCount - 1
 
-            root.setOnClickListener {
-                onItemClickViewHolder.invoke(adapterPosition)
-            }
             if (user.pathToImage != null) {
                 val file = File(viewBinding.root.context.filesDir, user.pathToImage)
                 requestManager
