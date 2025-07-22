@@ -1,4 +1,4 @@
-package com.example.secret_santa
+package com.example.secret_santa.fragments.createuser
 
 import android.content.Context
 import android.net.Uri
@@ -7,11 +7,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.secret_santa.R
 import com.example.secret_santa.databinding.FragmentCreateUserBinding
 import com.example.secret_santa.storage.ServiceLocator
 import com.example.secret_santa.utils.Constants
@@ -31,7 +32,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
         super.onCreate(savedInstanceState)
 
         // Registers a photo picker activity launcher in single-select mode.
-        pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
+        pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
                 imageUri = uri
                 viewBinding?.userIv?.setImageURI(uri)
@@ -56,7 +57,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
     }
 
     private fun onImagePickerClick(view: View) {
-        pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     private fun onSaveUserButtonClick(view: View) {

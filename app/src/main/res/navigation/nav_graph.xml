@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/createEventFragment"
-        android:name="com.example.secret_santa.CreateEventFragment"
+        android:name="com.example.secret_santa.fragments.createevent.CreateEventFragment"
         android:label="fragment_create_event"
         tools:layout="@layout/fragment_create_event" >
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/createUserFragment"
-        android:name="com.example.secret_santa.CreateUserFragment"
+        android:name="com.example.secret_santa.fragments.createuser.CreateUserFragment"
         android:label="fragment_create_user"
         tools:layout="@layout/fragment_create_user" >
         <action

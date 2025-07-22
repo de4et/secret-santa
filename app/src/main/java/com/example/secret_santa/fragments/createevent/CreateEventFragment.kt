@@ -1,11 +1,11 @@
-package com.example.secret_santa
+package com.example.secret_santa.fragments.createevent
 
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.secret_santa.R
 import com.example.secret_santa.databinding.FragmentCreateEventBinding
 import com.example.secret_santa.storage.ServiceLocator
 import java.util.Calendar
