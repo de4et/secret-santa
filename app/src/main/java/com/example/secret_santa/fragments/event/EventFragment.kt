@@ -2,7 +2,6 @@ package com.example.secret_santa.fragments.event
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -40,7 +39,7 @@ class EventFragment : Fragment(R.layout.fragment_event) {
 
         if (rvAdapter == null) {
             if (dataList == null) {
-                dataList = getParticipants(event!!.participants).toMutableList()
+                dataList = getParticipants(event?.participants).toMutableList()
             }
 
             rvAdapter = ListPageAdapter(
@@ -54,7 +53,7 @@ class EventFragment : Fragment(R.layout.fragment_event) {
             eventUsersRv.layoutManager = layoutManger
             eventUsersRv.adapter = rvAdapter
             eventNameTv.text = event?.name
-            addUserBtn.setOnClickListener(::onSaveButtonClick)
+            addUserBtn.setOnClickListener(::onAddUserButtonClick)
         }
 
         // Return to main on back pressed
@@ -66,18 +65,22 @@ class EventFragment : Fragment(R.layout.fragment_event) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun onSaveButtonClick(view: View) {
+    private fun onAddUserButtonClick(view: View) {
         findNavController().navigate(
             R.id.action_eventFragment_to_createUserFragment,
             bundleOf(Keys.EVENT_ID_KEY to event?.id)
         )
     }
 
-    private fun getParticipants(ids: List<String>): List<User> {
-        val idSet = ids.toSet()
-        return ServiceLocator.userStorage.getAll().filter { user ->
-            idSet.contains(user.id)
+    private fun getParticipants(ids: List<String>?): List<User> {
+        ids?.let { safeIds ->
+            val idSet = safeIds.toSet()
+            return ServiceLocator.userStorage.getAll().filter { user ->
+                idSet.contains(user.id)
+            }
         }
+
+        return listOf()
     }
 
     override fun onDestroyView() {
