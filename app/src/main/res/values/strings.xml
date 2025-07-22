@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="create_event_fragment_label">Создать событие</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -43,4 +44,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="event_name_label">Название события:</string>
+    <string name="event_date_label">Дата события:</string>
+    <string name="create_event_btn_text">Создать событие</string>
+    <string name="pick_image_btn_text">Выбрать фото</string>
+    <string name="user_name_label_text">Имя участника:</string>
+    <string name="user_wish_label_text">Пожелания:</string>
+    <string name="save_user_btn_text">Сохранить</string>
 </resources>
