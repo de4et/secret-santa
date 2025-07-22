@@ -50,8 +50,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 viewBinding?.addEventButton?.setOnClickListener {
                         findNavController()
-//                                .navigate(R.id.action_mainFragment_to_kakoytoFragment)
-
+                                .navigate(R.id.action_mainFragment_to_createEventFragment)
                 }
         }
 
