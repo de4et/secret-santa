@@ -1,15 +1,16 @@
-package com.example.secret_santa
+package com.example.secret_santa.fragments.createevent
 
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.secret_santa.R
 import com.example.secret_santa.databinding.FragmentCreateEventBinding
 import com.example.secret_santa.storage.ServiceLocator
 import java.util.Calendar
 
-class CreateEventFragment: Fragment(R.layout.fragment_create_event) {
+class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
 
     private var viewBinding: FragmentCreateEventBinding? = null
     private var datePickerDialog: DatePickerDialog? = null
@@ -26,25 +27,22 @@ class CreateEventFragment: Fragment(R.layout.fragment_create_event) {
             initDatePicker()
             datePickerBtn.setOnClickListener(::onDatePickerClick)
             val (year, month, day) = getTodayDate()
-            datePickerBtn.text = "$day/${month+1}/$year"
+            datePickerBtn.text = "$day/${month + 1}/$year"
             createEventBtn.setOnClickListener(::createEvent)
         }
     }
 
-    private fun createEvent(view: View)
-    {
+    private fun createEvent(view: View) {
         ServiceLocator.eventStorage.add(
             name = viewBinding?.eventNameIe?.text.toString(),
             date = viewBinding?.datePickerBtn?.text.toString(),
             participants = emptyList()
         )
 
-        // TODO: navigate this event's page
-        Toast.makeText(requireContext(), "Not yet implemented", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_createEventFragment_to_mainFragment)
     }
 
-    private fun getTodayDate() : Triple<Int, Int, Int>
-    {
+    private fun getTodayDate(): Triple<Int, Int, Int> {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -52,18 +50,16 @@ class CreateEventFragment: Fragment(R.layout.fragment_create_event) {
         return Triple(year, month, day)
     }
 
-    private fun initDatePicker()
-    {
+    private fun initDatePicker() {
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            viewBinding?.datePickerBtn?.text = "$dayOfMonth/${month+1}/$year"
+            viewBinding?.datePickerBtn?.text = "$dayOfMonth/${month + 1}/$year"
         }
 
         val (year, month, day) = getTodayDate()
         datePickerDialog = DatePickerDialog(requireContext(), dateSetListener, year, month, day)
     }
 
-    private fun onDatePickerClick(view: View)
-    {
+    private fun onDatePickerClick(view: View) {
         datePickerDialog?.show()
     }
 

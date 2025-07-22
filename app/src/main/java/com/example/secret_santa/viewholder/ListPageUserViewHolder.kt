@@ -1,5 +1,7 @@
 package com.example.secret_santa.viewholder
 
+import android.util.Log
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -25,10 +27,12 @@ class ListPageUserViewHolder(
             itemDivider.isVisible = itemPosition != itemsCount - 1
 
             if (user.pathToImage != null) {
-                val file = File(viewBinding.root.context.filesDir, user.pathToImage)
-                requestManager
-                    .load(file)
-                    .into(listItemIv)
+                listItemIv.setImageURI(user.pathToImage.toUri())
+                Log.i("SET", "IMAGE SET ${user.pathToImage}")
+//                val file = File(viewBinding.root.context.filesDir, user.pathToImage)
+//                requestManager
+//                    .load(file)
+//                    .into(listItemIv)
             }
         }
     }

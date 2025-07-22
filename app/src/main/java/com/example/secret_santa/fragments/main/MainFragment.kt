@@ -13,8 +13,7 @@ import com.example.secret_santa.adapter.EventsPageAdapter
 import com.example.secret_santa.databinding.FragmentMainBinding
 import com.example.secret_santa.model.event.Event
 import com.example.secret_santa.storage.ServiceLocator
-import com.example.secret_santa.util.Keys
-
+import com.example.secret_santa.utils.Constants
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -50,17 +49,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 viewBinding?.addEventButton?.setOnClickListener {
                         findNavController()
-//                                .navigate(R.id.action_mainFragment_to_kakoytoFragment)
+                                .navigate(R.id.action_mainFragment_to_createEventFragment)
 
                 }
         }
 
         private fun onItemClick(position: Int) {
                 val item = dataList?.get(position) ?: return
-                val bundle = bundleOf(Keys.LIST_ITEM_DATA_KEY to item)
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item)
 
-//                findNavController()
-//                        .navigate(R.id.action_mainFragment_to_kakoytoFragment, bundle)
+                findNavController()
+                        .navigate(R.id.action_mainFragment_to_eventFragment, bundle)
         }
         override fun onDestroyView() {
                 super.onDestroyView()
