@@ -59,4 +59,6 @@
     <string name="user_name_label_text">Имя участника:</string>
     <string name="user_wish_label_text">Пожелания:</string>
     <string name="save_user_btn_text">Сохранить</string>
+    <string name="add_user_btn_text">Добавить пользователя</string>
+    <string name="start_event_btn_text">Начать событие</string>
 </resources>
