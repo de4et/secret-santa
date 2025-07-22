@@ -15,7 +15,7 @@ import com.example.secret_santa.databinding.FragmentEventBinding
 import com.example.secret_santa.model.event.Event
 import com.example.secret_santa.model.user.User
 import com.example.secret_santa.storage.ServiceLocator
-import com.example.secret_santa.util.Keys
+import com.example.secret_santa.utils.Constants
 import com.example.secret_santa.utils.getParcelable
 
 class EventFragment : Fragment(R.layout.fragment_event) {
@@ -35,7 +35,7 @@ class EventFragment : Fragment(R.layout.fragment_event) {
     }
 
     private fun initView() {
-        event = getParcelable<Event>(Keys.LIST_ITEM_DATA_KEY) ?: return
+        event = getParcelable<Event>(Constants.Keys.LIST_ITEM_DATA_KEY) ?: return
 
         if (rvAdapter == null) {
             if (dataList == null) {
@@ -68,7 +68,7 @@ class EventFragment : Fragment(R.layout.fragment_event) {
     private fun onAddUserButtonClick(view: View) {
         findNavController().navigate(
             R.id.action_eventFragment_to_createUserFragment,
-            bundleOf(Keys.EVENT_ID_KEY to event?.id)
+            bundleOf(Constants.Keys.EVENT_ID_KEY to event?.id)
         )
     }
 

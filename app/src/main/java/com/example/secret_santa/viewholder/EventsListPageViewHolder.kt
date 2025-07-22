@@ -8,7 +8,7 @@ import com.bumptech.glide.RequestManager
 import com.example.secret_santa.R
 import com.example.secret_santa.databinding.EventsListItemBinding
 import com.example.secret_santa.model.event.Event
-import com.example.secret_santa.util.Keys
+import com.example.secret_santa.utils.Constants
 
 class EventsListPageViewHolder(
     private val viewBinding: EventsListItemBinding,
@@ -29,7 +29,7 @@ class EventsListPageViewHolder(
                 onItemClickViewHolder.invoke(adapterPosition)
             }
             playButton.setOnClickListener {
-                val bundle = bundleOf(Keys.LIST_ITEM_DATA_KEY to item)
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item)
 //                findNavController()
 //                        .navigate(R.id.action_mainFragment_to_kakoytoFragment, bundle)
             }

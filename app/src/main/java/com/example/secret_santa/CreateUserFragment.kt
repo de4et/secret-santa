@@ -3,7 +3,6 @@ package com.example.secret_santa
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -15,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.secret_santa.databinding.FragmentCreateUserBinding
 import com.example.secret_santa.storage.ServiceLocator
-import com.example.secret_santa.util.Keys
+import com.example.secret_santa.utils.Constants
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -61,7 +60,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
     }
 
     private fun onSaveUserButtonClick(view: View) {
-        val eventId = arguments?.getString(Keys.EVENT_ID_KEY) ?: return
+        val eventId = arguments?.getString(Constants.Keys.EVENT_ID_KEY) ?: return
         val name = viewBinding?.userNameIe?.text.toString().trim()
         val wish = viewBinding?.userWishIe?.text.toString().trim()
 
@@ -88,7 +87,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
 
         findNavController().navigate(
             R.id.action_createUserFragment_to_eventFragment,
-            bundleOf(Keys.LIST_ITEM_DATA_KEY to updatedEvent)
+            bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to updatedEvent)
         )
     }
 
