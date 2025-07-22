@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.secret_santa.adapter.ListPageAdapter
 import com.example.secret_santa.databinding.FragmentListPageUserBinding
 import com.example.secret_santa.decorator.BaseDecorator
-import com.example.secret_santa.model.User
+import com.example.secret_santa.model.user.User
 import com.example.secret_santa.utils.Constants
 
 class ListPageUserFragment : Fragment() {

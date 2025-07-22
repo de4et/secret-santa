@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.secret_santa.databinding.FragmentUserDetailsBinding
-import com.example.secret_santa.model.User
+import com.example.secret_santa.model.user.User
 import com.example.secret_santa.utils.Constants
 import java.io.File
 
@@ -20,7 +20,7 @@ class DetailsUserFragment : Fragment(R.layout.fragment_user_details) {
         viewBinding = FragmentUserDetailsBinding.bind(view)
         val user = arguments?.getParcelable(Constants.Args.USER, User::class.java) ?: return
 
-        viewBinding?.userNickname?.text = user.username
+        viewBinding?.userNickname?.text = user.name
         viewBinding?.wishesText?.text = user.wishes ?: getString(R.string.no_wishes_text)
 
         if (!user.pathToImage.isNullOrEmpty()) {

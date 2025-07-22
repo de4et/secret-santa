@@ -4,7 +4,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.secret_santa.databinding.ItemListUserPageBinding
-import com.example.secret_santa.model.User
+import com.example.secret_santa.model.user.User
 import java.io.File
 
 class ListPageUserViewHolder(
@@ -21,7 +21,7 @@ class ListPageUserViewHolder(
 
     fun bindData(user: User, itemPosition: Int, itemsCount: Int) {
         with(viewBinding) {
-            listItemUsername.text = user.username
+            listItemUsername.text = user.name
             itemDivider.isVisible = itemPosition != itemsCount - 1
 
             if (user.pathToImage != null) {
