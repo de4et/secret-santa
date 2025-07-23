@@ -1,5 +1,6 @@
 package com.example.secret_santa.viewholder
 
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation.findNavController
@@ -8,6 +9,7 @@ import com.bumptech.glide.RequestManager
 import com.example.secret_santa.R
 import com.example.secret_santa.databinding.EventsListItemBinding
 import com.example.secret_santa.model.event.Event
+import com.example.secret_santa.storage.ServiceLocator
 import com.example.secret_santa.utils.Constants
 
 class EventsListPageViewHolder(
@@ -30,7 +32,13 @@ class EventsListPageViewHolder(
                 onItemClickViewHolder.invoke(adapterPosition)
             }
             playButton.setOnClickListener {
-                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item)
+                val event = ServiceLocator.eventStorage.getById(item.id) ?: return@setOnClickListener
+                if (event.participants.size <= 2) {
+                    Toast.makeText(root.context, "Слишком мало участников!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                ServiceLocator.eventService.distributeInPairs(item.id)
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
 //                findNavController()
 //                        .navigate(R.id.action_mainFragment_to_kakoytoFragment, bundle)
             }
