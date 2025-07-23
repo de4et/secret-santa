@@ -9,5 +9,5 @@ data class User(
     val name: String,
     val pathToImage: String? = null,
     val wishes: String? = null,
-    val recipientId: String? = null
+    var recipientId: String? = null
 ): Parcelable
