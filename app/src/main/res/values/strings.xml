@@ -12,7 +12,7 @@
     <string name="back_button_text">Назад</string>
     <string name="nickname_text">Nickname</string>
     <string name="wishes_text">Здесь будут отображаться пожелания</string>
-    <string name="no_wishes_text">Здесь будут отображаться пожелания</string>
+    <string name="no_wishes_text">У пользователя нет пожеланий</string>
 
 
 

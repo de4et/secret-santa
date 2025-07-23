@@ -1,4 +1,4 @@
-package com.example.secret_santa
+package com.example.secret_santa.fragments.userdetails
 
 import android.os.Build
 import android.os.Bundle
@@ -9,7 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.secret_santa.databinding.FragmentUserDetailsBinding
 import com.example.secret_santa.model.user.User
 import com.example.secret_santa.utils.Constants
-import java.io.File
+import androidx.core.net.toUri
+import com.example.secret_santa.R
 
 class DetailsUserFragment : Fragment(R.layout.fragment_user_details) {
     private var viewBinding: FragmentUserDetailsBinding? = null
@@ -21,11 +22,16 @@ class DetailsUserFragment : Fragment(R.layout.fragment_user_details) {
         val user = arguments?.getParcelable(Constants.Args.USER, User::class.java) ?: return
 
         viewBinding?.userNickname?.text = user.name
-        viewBinding?.wishesText?.text = user.wishes ?: getString(R.string.no_wishes_text)
+        val text = if (user.wishes.isNullOrEmpty())
+            getString(R.string.no_wishes_text)
+        else
+            user.wishes
+        viewBinding?.wishesText?.text = text
 
         if (!user.pathToImage.isNullOrEmpty()) {
+            val uri = user.pathToImage.toUri()
             Glide.with(this)
-                .load(File(requireContext().filesDir, user.pathToImage))
+                .load(uri)
                 .into(viewBinding?.userAvatar!!)
         }
     }

@@ -7,11 +7,11 @@
   
     <fragment
         android:id="@+id/listPageUserFragment"
-        android:name="com.example.secret_santa.userlistpage.ListPageUserFragment"
+        android:name="com.example.secret_santa.fragments.userlistpage.ListPageUserFragment"
         android:label="@string/user_list_fragment_label">
         <argument
-            android:name="users"
-            app:argType="com.example.secret_santa.model.user.User[]"/>
+            android:name="LIST_ITEM_DATA"
+            app:argType="string"/>
         <action
             android:id="@+id/action_to_details"
             app:destination="@+id/detailsUserFragment" />
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/detailsUserFragment"
-        android:name="com.example.secret_santa.DetailsUserFragment"
+        android:name="com.example.secret_santa.fragments.userdetails.DetailsUserFragment"
         android:label="@string/user_detail_fragment_label">
         <argument
             android:name="user"
@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_mainFragment_to_eventFragment"
             app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_listPageUserFragment"
+            app:destination="@id/listPageUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/createEventFragment"

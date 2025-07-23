@@ -3,7 +3,6 @@ package com.example.secret_santa.viewholder
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.secret_santa.R
@@ -11,6 +10,7 @@ import com.example.secret_santa.databinding.EventsListItemBinding
 import com.example.secret_santa.model.event.Event
 import com.example.secret_santa.storage.ServiceLocator
 import com.example.secret_santa.utils.Constants
+import androidx.navigation.findNavController
 
 class EventsListPageViewHolder(
     private val viewBinding: EventsListItemBinding,
@@ -39,8 +39,8 @@ class EventsListPageViewHolder(
                 }
                 ServiceLocator.eventService.distributeInPairs(item.id)
                 val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
-//                findNavController()
-//                        .navigate(R.id.action_mainFragment_to_kakoytoFragment, bundle)
+                val navController = root.findNavController()
+                navController.navigate(R.id.action_mainFragment_to_listPageUserFragment, bundle)
             }
         }
     }
