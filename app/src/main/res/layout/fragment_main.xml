@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".fragments.main.MainFragment">
 
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        android:text="@string/no_events_text"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_page_rv"
         android:layout_width="match_parent"

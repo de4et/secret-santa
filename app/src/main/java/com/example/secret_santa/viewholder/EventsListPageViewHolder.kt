@@ -16,6 +16,7 @@ class EventsListPageViewHolder(
     private val requestManager: RequestManager,
     private val onItemClickViewHolder: (Int) -> Unit,
     private val onPlayButtonClick: (Int) -> Unit,
+    private val onDeleteButtonClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(viewBinding.root) {
 
     init {
@@ -25,6 +26,10 @@ class EventsListPageViewHolder(
 
         viewBinding.playButton.setOnClickListener {
             onPlayButtonClick(adapterPosition)
+        }
+
+        viewBinding.deleteBtn.setOnClickListener {
+            onDeleteButtonClick(adapterPosition)
         }
     }
 
