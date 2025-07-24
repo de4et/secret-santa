@@ -37,7 +37,11 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
         val eventName = viewBinding?.eventNameIe?.text.toString().trim()
 
         if (eventName.isEmpty()) {
-            Toast.makeText(requireContext(), getString(R.string.empty_event_name), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.empty_event_name),
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         ServiceLocator.eventStorage.add(
@@ -46,7 +50,8 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
             participants = emptyList()
         )
 
-        Toast.makeText(requireContext(), getString(R.string.event_created), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.event_created), Toast.LENGTH_SHORT)
+            .show()
 
         findNavController().navigate(R.id.action_createEventFragment_to_mainFragment)
     }
@@ -65,7 +70,13 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
         }
 
         val (year, month, day) = getTodayDate()
-        datePickerDialog = DatePickerDialog(requireContext(), dateSetListener, year, month, day)
+        datePickerDialog = DatePickerDialog(
+            requireContext(),
+            dateSetListener,
+            year, month, day
+        )
+
+        datePickerDialog?.datePicker?.minDate = Calendar.getInstance().timeInMillis
     }
 
     private fun onDatePickerClick(view: View) {
