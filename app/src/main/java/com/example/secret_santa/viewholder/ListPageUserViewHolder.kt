@@ -1,6 +1,7 @@
 package com.example.secret_santa.viewholder
 
 import android.util.Log
+import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +22,16 @@ class ListPageUserViewHolder(
         }
     }
 
-    fun bindData(user: User, itemPosition: Int, itemsCount: Int) {
+    fun bindData(
+        user: User,
+        itemPosition: Int,
+        itemsCount: Int,
+        showDeleteButton: Boolean = false
+    ) {
         with(viewBinding) {
             listItemUsername.text = user.name
             itemDivider.isVisible = itemPosition != itemsCount - 1
+            deleteBtn.visibility = if (showDeleteButton) View.VISIBLE else View.GONE
 
             if (user.pathToImage != null) {
                 listItemIv.setImageURI(user.pathToImage.toUri())

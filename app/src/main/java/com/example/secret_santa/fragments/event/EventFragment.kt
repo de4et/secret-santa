@@ -46,7 +46,8 @@ class EventFragment : Fragment(R.layout.fragment_event) {
             rvAdapter = ListPageAdapter(
                 dataList = dataList ?: mutableListOf(),
                 onItemClickAdapter = { _ -> },
-                requestManager = Glide.with(this)
+                requestManager = Glide.with(this),
+                showDeleteButton = true
             )
         }
         val layoutManger = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
