@@ -13,6 +13,7 @@ class ListPageAdapter(
     private val requestManager: RequestManager,
     private val onItemClickAdapter: (Int) -> Unit,
     private val showDeleteButton: Boolean = false,
+    private val onDeleteButtonClick: (Int) -> Unit = {}
 ) : RecyclerView.Adapter<ListPageUserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListPageUserViewHolder {
@@ -23,6 +24,7 @@ class ListPageAdapter(
             viewBinding = viewBinding,
             requestManager = requestManager,
             onItemClickViewHolder = onItemClickAdapter,
+            onDeleteButtonClick = onDeleteButtonClick
         )
     }
 

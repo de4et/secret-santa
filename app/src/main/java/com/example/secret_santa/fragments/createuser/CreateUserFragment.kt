@@ -95,10 +95,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
             Toast.makeText(requireContext(), getString(R.string.user_not_saved), Toast.LENGTH_SHORT).show()
         }
 
-        findNavController().navigate(
-            R.id.action_createUserFragment_to_eventFragment,
-            bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to updatedEvent)
-        )
+        findNavController().navigateUp()
     }
 
     fun saveProfileImageToInternalStorage(

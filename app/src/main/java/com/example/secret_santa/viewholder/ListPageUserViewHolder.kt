@@ -8,17 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.secret_santa.databinding.ItemListUserPageBinding
 import com.example.secret_santa.model.user.User
-import java.io.File
 
 class ListPageUserViewHolder(
     private val viewBinding: ItemListUserPageBinding,
     private val requestManager: RequestManager,
     private val onItemClickViewHolder: (Int) -> Unit,
+    private val onDeleteButtonClick: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(viewBinding.root) {
 
     init {
         viewBinding.root.setOnClickListener {
             onItemClickViewHolder(adapterPosition)
+        }
+
+        viewBinding.deleteBtn.setOnClickListener {
+            onDeleteButtonClick(adapterPosition)
         }
     }
 
