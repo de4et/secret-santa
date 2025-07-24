@@ -2,6 +2,7 @@ package com.example.secret_santa.fragments.main;
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 dataList = dataList ?: mutableListOf(),
                                 requestManager = Glide.with(this),
                                 onItemClickAdapter = ::onItemClick,
+                                onPlayButtonClick = ::onPlayButtonClick
                         )
                 }
 
@@ -55,11 +57,37 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         private fun onItemClick(position: Int) {
                 val item = dataList?.get(position) ?: return
-                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item)
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
 
-                findNavController()
-                        .navigate(R.id.action_mainFragment_to_eventFragment, bundle)
+                if (!item.isLocked) {
+                        findNavController()
+                                .navigate(R.id.action_mainFragment_to_eventFragment, bundle)
+                } else {
+                        findNavController()
+                                .navigate(R.id.action_mainFragment_to_listPageUserFragment, bundle)
+                }
         }
+
+        private fun onPlayButtonClick(position: Int) {
+                val item = dataList?.get(position) ?: return
+                val event = ServiceLocator.eventStorage.getById(item.id) ?: return
+                if (event.participants.size <= 2) {
+                        Toast.makeText(requireContext(), "Слишком мало участников!", Toast.LENGTH_SHORT).show()
+                        return
+                }
+                ServiceLocator.eventService.distributeInPairs(item.id)
+                val lockedEvent = event.copy(isLocked = true)
+                ServiceLocator.eventStorage.update(lockedEvent)
+                dataList?.let { safeDataList ->
+                        safeDataList[position].isLocked = true
+                        rvAdapter?.notifyItemChanged(position)
+                }
+                Toast.makeText(requireContext(), "Пары успешно распределены", Toast.LENGTH_SHORT).show()
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
+                val navController = findNavController()
+                navController.navigate(R.id.action_mainFragment_to_listPageUserFragment, bundle)
+        }
+
         override fun onDestroyView() {
                 super.onDestroyView()
                 viewBinding = null

@@ -12,6 +12,7 @@ class EventsPageAdapter(
     private val dataList: MutableList<Event>,
     private val requestManager: RequestManager,
     private val onItemClickAdapter: (Int) -> Unit,
+    private val onPlayButtonClick: (Int) -> Unit
 ) : RecyclerView.Adapter<EventsListPageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsListPageViewHolder {
@@ -22,6 +23,7 @@ class EventsPageAdapter(
             viewBinding = viewBinding,
             requestManager = requestManager,
             onItemClickViewHolder = onItemClickAdapter,
+            onPlayButtonClick = onPlayButtonClick
         )
     }
 

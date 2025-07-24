@@ -16,7 +16,6 @@ import com.example.secret_santa.model.event.Event
 import com.example.secret_santa.model.user.User
 import com.example.secret_santa.storage.ServiceLocator
 import com.example.secret_santa.utils.Constants
-import com.example.secret_santa.utils.getParcelable
 
 class EventFragment : Fragment(R.layout.fragment_event) {
 
@@ -36,7 +35,7 @@ class EventFragment : Fragment(R.layout.fragment_event) {
 
     private fun initView() {
         event = ServiceLocator.eventStorage.getById(
-            getParcelable<Event>(Constants.Keys.LIST_ITEM_DATA_KEY)?.id ?: return
+            arguments?.getString(Constants.Keys.LIST_ITEM_DATA_KEY) ?: return
         )
 
         if (rvAdapter == null) {
