@@ -2,6 +2,7 @@ package com.example.secret_santa.fragments.userdetails
 
 import android.os.Build
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -35,6 +36,7 @@ class DetailsUserFragment : Fragment(R.layout.fragment_user_details) {
 //                .load(uri)
 //                .into(viewBinding?.userAvatar!!)
         }
+        viewBinding?.wishesText?.movementMethod = ScrollingMovementMethod.getInstance()
     }
 
     override fun onDestroyView() {

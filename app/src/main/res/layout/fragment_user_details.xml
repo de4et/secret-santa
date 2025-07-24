@@ -40,6 +40,7 @@
         android:text="@string/wishes_text"
         android:textSize="20sp"
         android:padding="16dp"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/userNickname"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
