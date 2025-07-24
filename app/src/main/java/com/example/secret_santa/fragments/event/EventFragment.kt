@@ -3,7 +3,6 @@ package com.example.secret_santa.fragments.event
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -17,7 +16,6 @@ import com.example.secret_santa.model.event.Event
 import com.example.secret_santa.model.user.User
 import com.example.secret_santa.storage.ServiceLocator
 import com.example.secret_santa.utils.Constants
-import com.example.secret_santa.utils.getParcelable
 
 class EventFragment : Fragment(R.layout.fragment_event) {
 
@@ -36,7 +34,9 @@ class EventFragment : Fragment(R.layout.fragment_event) {
     }
 
     private fun initView() {
-        event = getParcelable<Event>(Constants.Keys.LIST_ITEM_DATA_KEY) ?: return
+        event = ServiceLocator.eventStorage.getById(
+            arguments?.getString(Constants.Keys.LIST_ITEM_DATA_KEY) ?: return
+        )
 
         if (rvAdapter == null) {
             if (dataList == null) {
@@ -46,7 +46,9 @@ class EventFragment : Fragment(R.layout.fragment_event) {
             rvAdapter = ListPageAdapter(
                 dataList = dataList ?: mutableListOf(),
                 onItemClickAdapter = { _ -> },
-                requestManager = Glide.with(this)
+                requestManager = Glide.with(this),
+                showDeleteButton = true,
+                onDeleteButtonClick = ::onDeleteButtonClick
             )
         }
         val layoutManger = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -56,14 +58,24 @@ class EventFragment : Fragment(R.layout.fragment_event) {
             eventNameTv.text = event?.name
             addUserBtn.setOnClickListener(::onAddUserButtonClick)
         }
+    }
 
-        // Return to main on back pressed
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_eventFragment_to_mainFragment)
+    override fun onResume() {
+        super.onResume()
+        event = ServiceLocator.eventStorage.getById(event?.id ?: return) ?: return
+
+        // Update data list and rv if user was added
+        dataList?.let { safeDataList ->
+            event?.participants?.let { safeParticipants ->
+                if (safeDataList.size < safeParticipants.size) {
+                    val user = ServiceLocator.userStorage.getById(safeParticipants.last())
+                    if (user != null) {
+                        safeDataList.add(user)
+                    }
+                    rvAdapter?.notifyItemInserted(safeDataList.size - 1)
+                }
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun onAddUserButtonClick(view: View) {
@@ -82,6 +94,28 @@ class EventFragment : Fragment(R.layout.fragment_event) {
             R.id.action_eventFragment_to_createUserFragment,
             bundleOf(Constants.Keys.EVENT_ID_KEY to event?.id)
         )
+    }
+
+    private fun onDeleteButtonClick(position: Int) {
+        event?.apply {
+            if (isLocked) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.event_is_locked_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
+        }
+
+        val user = dataList?.get(position) ?: return
+        ServiceLocator.userStorage.delete(user.id)
+        val newEvent = event?.copy(participants = event?.participants?.minus(user.id) ?: listOf())
+        newEvent?.let {
+            ServiceLocator.eventStorage.update(it)
+        }
+        dataList?.removeAt(position)
+        rvAdapter?.notifyItemRemoved(position)
     }
 
     private fun getParticipants(ids: List<String>?): List<User> {

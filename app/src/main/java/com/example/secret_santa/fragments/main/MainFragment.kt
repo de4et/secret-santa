@@ -2,6 +2,7 @@ package com.example.secret_santa.fragments.main;
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 dataList = dataList ?: mutableListOf(),
                                 requestManager = Glide.with(this),
                                 onItemClickAdapter = ::onItemClick,
+                                onPlayButtonClick = ::onPlayButtonClick,
+                                onDeleteButtonClick = ::onDeleteButtonClick
                         )
                 }
 
@@ -51,15 +54,93 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         findNavController()
                                 .navigate(R.id.action_mainFragment_to_createEventFragment)
                 }
+                updateEmptyListTv()
         }
 
         private fun onItemClick(position: Int) {
                 val item = dataList?.get(position) ?: return
-                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item)
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
 
-                findNavController()
-                        .navigate(R.id.action_mainFragment_to_eventFragment, bundle)
+                if (!item.isLocked) {
+                        findNavController()
+                                .navigate(R.id.action_mainFragment_to_eventFragment, bundle)
+                } else {
+                        findNavController()
+                                .navigate(R.id.action_mainFragment_to_listPageUserFragment, bundle)
+                }
         }
+
+        private fun onPlayButtonClick(position: Int) {
+                val item = dataList?.get(position) ?: return
+                val event = ServiceLocator.eventStorage.getById(item.id) ?: return
+                if (event.isLocked) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.event_is_locked_toast),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                }
+                if (event.participants.size <= 2) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.not_enough_users_toast),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                }
+                ServiceLocator.eventService.distributeInPairs(item.id)
+                val lockedEvent = event.copy(isLocked = true)
+                ServiceLocator.eventStorage.update(lockedEvent)
+                dataList?.let { safeDataList ->
+                        safeDataList[position].isLocked = true
+                        rvAdapter?.notifyItemChanged(position)
+                }
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.users_paired_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
+                val navController = findNavController()
+                navController.navigate(R.id.action_mainFragment_to_listPageUserFragment, bundle)
+        }
+
+        private fun onDeleteButtonClick(position: Int) {
+                val item = dataList?.get(position) ?: return
+                ServiceLocator.eventStorage.delete(item.id)
+                dataList?.removeAt(position)
+                rvAdapter?.apply {
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                }
+                updateEmptyListTv()
+        }
+
+        private fun updateEmptyListTv() {
+            if (dataList?.isEmpty() == true) {
+                viewBinding?.emptyTv?.visibility = View.VISIBLE
+            } else {
+                viewBinding?.emptyTv?.visibility = View.GONE
+            }
+        }
+
+    override fun onResume() {
+        super.onResume()
+        val updatedList = ServiceLocator.eventStorage.getAll()
+
+        dataList?.let { safeDataList ->
+            if (safeDataList.size < updatedList.size) {
+                val event = ServiceLocator.eventStorage.getById(updatedList.last().id)
+                if (event != null) {
+                    safeDataList.add(event)
+                }
+                rvAdapter?.notifyItemInserted(safeDataList.size - 1)
+            }
+        }
+        updateEmptyListTv()
+    }
+
         override fun onDestroyView() {
                 super.onDestroyView()
                 viewBinding = null

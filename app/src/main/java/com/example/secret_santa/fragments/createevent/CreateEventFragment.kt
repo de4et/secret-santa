@@ -53,7 +53,7 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
         Toast.makeText(requireContext(), getString(R.string.event_created), Toast.LENGTH_SHORT)
             .show()
 
-        findNavController().navigate(R.id.action_createEventFragment_to_mainFragment)
+        findNavController().navigateUp()
     }
 
     private fun getTodayDate(): Triple<Int, Int, Int> {

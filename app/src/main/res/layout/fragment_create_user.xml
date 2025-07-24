@@ -85,6 +85,7 @@
             android:id="@+id/user_wish_ie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:maxLines="5"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

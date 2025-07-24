@@ -34,4 +34,8 @@
     <string name="add_user_btn_text">Добавить пользователя</string>
     <string name="start_event_btn_text">Начать событие</string>
     <string name="event_is_locked_toast">Событие уже началось</string>
+    <string name="not_enough_users_toast">Слишком мало участников!</string>
+    <string name="users_paired_toast">"Пары успешно распределены"</string>
+    <string name="no_events_text">Событий пока нет</string>
+
 </resources>

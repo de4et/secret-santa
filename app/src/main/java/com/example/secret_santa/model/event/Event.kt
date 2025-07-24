@@ -8,6 +8,6 @@ data class Event(
     val id: String,
     val name: String,
     val dateStart: String,
-    val isLocked: Boolean = false,
+    var isLocked: Boolean = false,
     val participants: List<String> = emptyList()
 ) : Parcelable

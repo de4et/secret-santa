@@ -12,6 +12,8 @@ class ListPageAdapter(
     private val dataList: MutableList<User>,
     private val requestManager: RequestManager,
     private val onItemClickAdapter: (Int) -> Unit,
+    private val showDeleteButton: Boolean = false,
+    private val onDeleteButtonClick: (Int) -> Unit = {}
 ) : RecyclerView.Adapter<ListPageUserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListPageUserViewHolder {
@@ -22,11 +24,17 @@ class ListPageAdapter(
             viewBinding = viewBinding,
             requestManager = requestManager,
             onItemClickViewHolder = onItemClickAdapter,
+            onDeleteButtonClick = onDeleteButtonClick
         )
     }
 
     override fun onBindViewHolder(holder: ListPageUserViewHolder, position: Int) {
-        holder.bindData(user = dataList[position], itemPosition = position, itemsCount = itemCount)
+        holder.bindData(
+            user = dataList[position],
+            itemPosition = position,
+            itemsCount = itemCount,
+            showDeleteButton = showDeleteButton
+        )
     }
 
     override fun getItemCount(): Int = dataList.size
