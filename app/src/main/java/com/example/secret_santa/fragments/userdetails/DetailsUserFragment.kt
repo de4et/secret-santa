@@ -30,9 +30,10 @@ class DetailsUserFragment : Fragment(R.layout.fragment_user_details) {
 
         if (!user.pathToImage.isNullOrEmpty()) {
             val uri = user.pathToImage.toUri()
-            Glide.with(this)
-                .load(uri)
-                .into(viewBinding?.userAvatar!!)
+            viewBinding?.userAvatar?.setImageURI(uri)
+//            Glide.with(this)
+//                .load(uri)
+//                .into(viewBinding?.userAvatar!!)
         }
     }
 
