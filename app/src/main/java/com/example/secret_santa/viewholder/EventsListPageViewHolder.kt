@@ -38,6 +38,7 @@ class EventsListPageViewHolder(
                     return@setOnClickListener
                 }
                 ServiceLocator.eventService.distributeInPairs(item.id)
+                Toast.makeText(root.context, "Пары успешно распределены", Toast.LENGTH_SHORT).show()
                 val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
                 val navController = root.findNavController()
                 navController.navigate(R.id.action_mainFragment_to_listPageUserFragment, bundle)

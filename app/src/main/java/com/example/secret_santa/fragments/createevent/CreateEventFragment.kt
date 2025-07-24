@@ -3,6 +3,7 @@ package com.example.secret_santa.fragments.createevent
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.secret_santa.R
@@ -33,11 +34,19 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
     }
 
     private fun createEvent(view: View) {
+        val eventName = viewBinding?.eventNameIe?.text.toString().trim()
+
+        if (eventName.isEmpty()) {
+            Toast.makeText(requireContext(), getString(R.string.empty_event_name), Toast.LENGTH_SHORT).show()
+            return
+        }
         ServiceLocator.eventStorage.add(
             name = viewBinding?.eventNameIe?.text.toString(),
             date = viewBinding?.datePickerBtn?.text.toString(),
             participants = emptyList()
         )
+
+        Toast.makeText(requireContext(), getString(R.string.event_created), Toast.LENGTH_SHORT).show()
 
         findNavController().navigate(R.id.action_createEventFragment_to_mainFragment)
     }

@@ -34,18 +34,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/add_user_btn_text"
-        app:layout_constraintBottom_toTopOf="@id/start_event_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/event_users_rv"
         app:layout_constraintStart_toStartOf="@id/event_users_rv"/>
-
-    <Button
-        android:id="@+id/start_event_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/start_event_btn_text"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/add_user_btn"
-        app:layout_constraintEnd_toEndOf="@id/add_user_btn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

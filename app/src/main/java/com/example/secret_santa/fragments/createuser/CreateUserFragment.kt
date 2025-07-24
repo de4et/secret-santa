@@ -31,11 +31,13 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Registers a photo picker activity launcher in single-select mode.
         pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
                 imageUri = uri
                 viewBinding?.userIv?.setImageURI(uri)
+                Toast.makeText(requireContext(), getString(R.string.image_saved), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.image_not_choiced), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -65,6 +67,11 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
         val name = viewBinding?.userNameIe?.text.toString().trim()
         val wish = viewBinding?.userWishIe?.text.toString().trim()
 
+        if (name.isEmpty()) {
+            Toast.makeText(requireContext(), getString(R.string.empty_username), Toast.LENGTH_SHORT).show()
+            return
+        }
+
         var path = "android.resource://com.example.secret_santa/drawable/baseline_person_200"
         if (imageUri?.toString() != path) {
             imageUri?.let {
@@ -75,7 +82,6 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
                 )?.let { image ->
                     path = image
                 }
-
             }
         }
 
@@ -84,6 +90,9 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
         val updatedEvent = event?.copy(participants = event.participants + id)
         if (updatedEvent != null) {
             ServiceLocator.eventStorage.update(updatedEvent)
+            Toast.makeText(requireContext(), getString(R.string.user_saved), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.user_not_saved), Toast.LENGTH_SHORT).show()
         }
 
         findNavController().navigate(
@@ -110,7 +119,7 @@ class CreateUserFragment : Fragment(R.layout.fragment_create_user) {
                 return file.absolutePath
             }
         } catch (e: IOException) {
-            Toast.makeText(context, "Error saving image", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.error_image_save), Toast.LENGTH_SHORT).show()
         }
         return null
     }

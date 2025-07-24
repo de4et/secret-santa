@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.secret_santa.fragments.main.MainFragment"
-        android:label="fragment_main"
+        android:label="@string/main_label"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_createEventFragment"
@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/createEventFragment"
         android:name="com.example.secret_santa.fragments.createevent.CreateEventFragment"
-        android:label="fragment_create_event"
+        android:label="@string/event_create_label"
         tools:layout="@layout/fragment_create_event" >
         <action
             android:id="@+id/action_createEventFragment_to_mainFragment"
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.example.secret_santa.fragments.event.EventFragment"
-        android:label="fragment_event"
+        android:label="@string/users_update_label"
         tools:layout="@layout/fragment_event" >
         <action
             android:id="@+id/action_eventFragment_to_createUserFragment"
@@ -65,7 +65,7 @@
     <fragment
         android:id="@+id/createUserFragment"
         android:name="com.example.secret_santa.fragments.createuser.CreateUserFragment"
-        android:label="fragment_create_user"
+        android:label="@string/user_create_label"
         tools:layout="@layout/fragment_create_user" >
         <action
             android:id="@+id/action_createUserFragment_to_eventFragment"
