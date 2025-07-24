@@ -38,6 +38,8 @@ class EventsListPageViewHolder(
                     return@setOnClickListener
                 }
                 ServiceLocator.eventService.distributeInPairs(item.id)
+                val lockedEvent = event.copy(isLocked = true)
+                ServiceLocator.eventStorage.update(lockedEvent)
                 Toast.makeText(root.context, "Пары успешно распределены", Toast.LENGTH_SHORT).show()
                 val bundle = bundleOf(Constants.Keys.LIST_ITEM_DATA_KEY to item.id)
                 val navController = root.findNavController()

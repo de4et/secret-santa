@@ -33,4 +33,5 @@
     <string name="save_user_btn_text">Сохранить</string>
     <string name="add_user_btn_text">Добавить пользователя</string>
     <string name="start_event_btn_text">Начать событие</string>
+    <string name="event_is_locked_toast">Событие уже началось</string>
 </resources>

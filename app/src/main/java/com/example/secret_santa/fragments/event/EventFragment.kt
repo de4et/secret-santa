@@ -2,6 +2,7 @@ package com.example.secret_santa.fragments.event
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -66,6 +67,17 @@ class EventFragment : Fragment(R.layout.fragment_event) {
     }
 
     private fun onAddUserButtonClick(view: View) {
+        event?.apply {
+            if (isLocked) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.event_is_locked_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
+        }
+
         findNavController().navigate(
             R.id.action_eventFragment_to_createUserFragment,
             bundleOf(Constants.Keys.EVENT_ID_KEY to event?.id)
